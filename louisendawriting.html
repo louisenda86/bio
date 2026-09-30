@@ -1,0 +1,312 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Book Writing Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+  /* Layout: one ruled notebook page, red margin line, mono labels, sequence guide then checklist */
+  :root {
+    --bg: #eceef1;
+    --paper: #fbfbfc;
+    --ink: #1b1f26;
+    --muted: #616a79;
+    --rule: #d6dde9;
+    --margin: #d96b6b;
+    --accent: #2b5fb4;
+    --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --line: 28px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101216;
+      --paper: #191c21;
+      --ink: #dde1e8;
+      --muted: #8f97a5;
+      --rule: #272c35;
+      --margin: #b45a5a;
+      --accent: #86aee8;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101216;
+    --paper: #191c21;
+    --ink: #dde1e8;
+    --muted: #8f97a5;
+    --rule: #272c35;
+    --margin: #b45a5a;
+    --accent: #86aee8;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: var(--line);
+    padding-inline: 16px;
+    padding-block: 32px 48px;
+  }
+  .sheet {
+    max-width: 640px;
+    margin-inline: auto;
+    background-color: var(--paper);
+    background-image: linear-gradient(to bottom, transparent 27px, var(--rule) 27px 28px);
+    background-size: 100% var(--line);
+    border: 1px solid var(--rule);
+    padding: var(--line) 20px calc(var(--line) * 2) 64px;
+    position: relative;
+  }
+  .sheet::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; left: 44px;
+    width: 1px;
+    background: var(--margin);
+  }
+  @media (max-width: 480px) {
+    .sheet { padding-left: 44px; padding-right: 14px; }
+    .sheet::before { left: 30px; }
+  }
+
+  h1 {
+    font-size: 28px;
+    line-height: calc(var(--line) * 2);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h2 {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: var(--line);
+    margin: var(--line) 0 0;
+  }
+  h3 {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: var(--line);
+    margin: var(--line) 0 0;
+  }
+  p { margin: 0; }
+  .lede { color: var(--muted); }
+  nav {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 20px;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .bio h2 { margin-top: 0; }
+  .bio-name { font-size: 20px; font-weight: 600; line-height: var(--line); margin: 0; }
+  dl.bio-list { margin: 0 0 var(--line); }
+  dl.bio-list div {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    column-gap: 8px;
+  }
+  dl.bio-list dt {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  dl.bio-list dd { margin: 0; overflow-wrap: anywhere; }
+  .bio .bio-name, .bio h2, .bio dl.bio-list dt, .bio dl.bio-list dd { text-transform: lowercase; }
+
+  ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    padding-bottom: var(--line);
+  }
+  ol.steps li::before {
+    content: counter(step);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  ol.steps strong { font-weight: 600; display: block; }
+  ol.steps span { color: var(--muted); display: block; }
+
+  .lengths { font-family: var(--font-mono); font-size: 13px; }
+  .lengths div { display: flex; justify-content: space-between; gap: 16px; }
+  .lengths dt { margin: 0; }
+  .lengths dd { margin: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+  dl { margin: 0; }
+
+  .progress { display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); height: var(--line); }
+  .bar { flex: 1; height: 4px; background: var(--rule); }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s ease; }
+  @media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+  #count { font-variant-numeric: tabular-nums; }
+
+  ul.check { list-style: none; margin: 0; padding: 0; }
+  ul.check label {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    cursor: pointer;
+  }
+  ul.check input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    margin: 7px 0 0;
+    border: 1.5px solid var(--muted);
+    background: transparent;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+  }
+  ul.check input:checked { background: var(--accent); border-color: var(--accent); }
+  ul.check input:checked::after {
+    content: "";
+    width: 4px; height: 8px;
+    border: solid var(--paper);
+    border-width: 0 2px 2px 0;
+    transform: translateY(-1px) rotate(45deg);
+  }
+  ul.check input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--rule); }
+
+  button.reset {
+    font: inherit;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    line-height: var(--line);
+    margin-top: var(--line);
+  }
+</style>
+
+<main class="sheet">
+  <section class="bio" aria-label="Bio">
+    <h2>bio</h2>
+    <p class="bio-name">louis enda japar</p>
+    <dl class="bio-list">
+      <div class="wife"><dt>wife</dt><dd>lyana dris</dd></div>
+      <div><dt>father</dt><dd>japar</dd></div>
+      <div><dt>mother</dt><dd>becky</dd></div>
+      <div><dt>grandfather</dt><dd>sagong</dd></div>
+      <div><dt>lives in</dt><dd>ulu pedanum, sarawak</dd></div>
+      <div><dt>education</dt><dd>politeknik sarawak</dd></div>
+      <div><dt>hobby</dt><dd>experimental physics, studying patterns, vibe coding with claude, rethinking thinking</dd></div>
+      <div><dt>height</dt><dd>165 cm</dd></div>
+      <div><dt>weight</dt><dd>68 kg</dd></div>
+      <div><dt>face</dt><dd>handsome devil</dd></div>
+      <div><dt>music</dt><dd>mejalism corp</dd></div>
+      <div><dt>kids</dt><dd>3</dd></div>
+      <div><dt>future</dt><dd>to be born again</dd></div>
+    </dl>
+  </section>
+
+  <nav aria-label="Sections"><a href="#guide">Guide</a><a href="#checklist">Checklist</a></nav>
+  <h1>How to write a book</h1>
+  <p class="lede">Write a little every day, finish a rough draft, then fix it in passes.</p>
+
+  <h2 id="guide">Guide</h2>
+  <ol class="steps">
+    <li><div><strong>Pin the idea</strong><span>Write one sentence: who the book is for and what changes for them by the last page.</span></div></li>
+    <li><div><strong>Outline</strong><span>Fiction: list the scenes that turn the story. Nonfiction: one chapter per part of the promise.</span></div></li>
+    <li><div><strong>Set a daily quota</strong><span>500 words a day gives a 50,000 word draft in about 100 days. Pick a fixed time and protect it.</span></div></li>
+    <li><div><strong>Draft to the end</strong><span>Do not edit while drafting. Leave gaps marked [TK] and keep moving until the last chapter is down.</span></div></li>
+    <li><div><strong>Rest the draft</strong><span>Put it away for two to four weeks. You will read it as a stranger would.</span></div></li>
+    <li><div><strong>Revise in passes</strong><span>Structure first (order, missing parts, cuts), then paragraphs, then sentences, then typos.</span></div></li>
+    <li><div><strong>Get readers</strong><span>Give it to three to five people with two or three specific questions, such as where they got bored.</span></div></li>
+    <li><div><strong>Publish</strong><span>Query agents for a traditional deal, or self-publish with an editor, a cover and an ISBN.</span></div></li>
+  </ol>
+
+  <h3>Typical lengths</h3>
+  <dl class="lengths">
+    <div><dt>Novel</dt><dd>70,000 – 90,000</dd></div>
+    <div><dt>Memoir</dt><dd>60,000 – 80,000</dd></div>
+    <div><dt>Nonfiction</dt><dd>40,000 – 70,000</dd></div>
+  </dl>
+
+  <h2 id="checklist">Checklist</h2>
+  <div class="progress" aria-live="polite"><span id="count">0 / 0</span><div class="bar"><i id="fill"></i></div></div>
+  <div id="groups"></div>
+  <button class="reset" id="reset" type="button">Clear all</button>
+</main>
+
+<script>
+  var GROUPS = [
+    ["Before", ["One sentence idea written", "Reader defined", "Outline finished", "Daily writing slot chosen", "Working title picked"]],
+    ["Drafting", ["Quota set (words or minutes)", "Opening chapter written", "Midpoint reached", "Last chapter written", "Full draft saved and backed up"]],
+    ["Revising", ["Draft rested two weeks", "Structure pass done", "Chapter pass done", "Sentence pass done", "Proofread once out loud", "Beta readers gave feedback"]],
+    ["Publishing", ["Blurb and author bio written", "Cover and title final", "Copyedit done", "Route chosen: agent or self-publish", "Book released"]]
+  ];
+  var KEY = "book-writing-notes-checked";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+
+  var root = document.getElementById("groups");
+  var boxes = [];
+  GROUPS.forEach(function (g, gi) {
+    var h = document.createElement("h3");
+    h.textContent = g[0];
+    root.appendChild(h);
+    var ul = document.createElement("ul");
+    ul.className = "check";
+    g[1].forEach(function (text, ii) {
+      var id = "c-" + gi + "-" + ii;
+      var li = document.createElement("li");
+      var label = document.createElement("label");
+      label.htmlFor = id;
+      var input = document.createElement("input");
+      input.type = "checkbox";
+      input.id = id;
+      input.checked = !!state[id];
+      input.addEventListener("change", function () { state[id] = input.checked; save(); update(); });
+      var span = document.createElement("span");
+      span.textContent = text;
+      label.appendChild(input);
+      label.appendChild(span);
+      li.appendChild(label);
+      ul.appendChild(li);
+      boxes.push(input);
+    });
+    root.appendChild(ul);
+  });
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function update() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    document.getElementById("count").textContent = done + " / " + boxes.length;
+    document.getElementById("fill").style.width = (boxes.length ? (done / boxes.length) * 100 : 0) + "%";
+  }
+  document.getElementById("reset").addEventListener("click", function () {
+    state = {};
+    boxes.forEach(function (b) { b.checked = false; });
+    save(); update();
+  });
+  update();
+</script>
+
+</body></html>
